@@ -1592,6 +1592,9 @@ open-meteo==0.3.2
 # homeassistant.components.openai_conversation
 openai==1.68.2
 
+# homeassistant.components.tpo_home_security
+opencv-python-headless==4.8.0.76
+
 # homeassistant.components.openerz
 openerz-api==0.3.0
 
@@ -2979,6 +2982,9 @@ uiprotect==7.5.5
 
 # homeassistant.components.landisgyr_heat_meter
 ultraheat-api==0.5.7
+
+# homeassistant.components.tpo_home_security
+ultralytics==8.1.44
 
 # homeassistant.components.unifiprotect
 unifi-discovery==1.2.0
