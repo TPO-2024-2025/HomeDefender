@@ -27,7 +27,7 @@ _LOGGER = logging.getLogger(__name__)
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 VIDEO_FILE = Path(__file__).parent / "SecurityCam.mp4"
-MODEL_FILE = Path(__file__).parent / "yolov5s.pt"
+MODEL_FILE = Path(__file__).parent / "yolov8n.pt"
 PERSON_CLASS = 0
 CONFIDENCE = 0.5
 # ────────────────────────────────────────────────────────────────────────────────
