@@ -1,0 +1,8 @@
+{
+  "domain": "tpo_home_security",
+  "name": "home_sec",
+  "codeowners": ["@LazarNedelja"],
+  "config_flow": true,
+  "iot_class": "assumed_state",
+  "requirements": ["ultralytics==8.1.44", "opencv-python-headless==4.8.0.76"]
+}
