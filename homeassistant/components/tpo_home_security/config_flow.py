@@ -7,11 +7,19 @@ from typing import Any
 
 import voluptuous as vol
 
+from homeassistant import config_entries
+
 # 1) IMPORT THE REAL BASE CLASS (aliased so we can still call ours ConfigFlow)
 from homeassistant.config_entries import ConfigFlow as _ConfigFlow, ConfigFlowResult
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.const import (  # noqa: F401
+    CONF_EMAIL,
+    CONF_HOST,
+    CONF_PASSWORD,
+    CONF_USERNAME,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
+from homeassistant.helpers import config_validation as cv
 
 from .const import DOMAIN
 
@@ -73,6 +81,40 @@ class ConfigFlow(_ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user", data_schema=STEP_USER_DATA_SCHEMA, errors=errors
+        )
+
+    # 4) Tell HA there *is* an options flow
+    @staticmethod
+    def async_get_options_flow(config_entry):  # noqa: D102
+        return OptionsFlowHandler(config_entry)
+
+
+class OptionsFlowHandler(config_entries.OptionsFlow):
+    """Allows editing email_recipients (and later other options) at runtime."""
+
+    def __init__(self, config_entry):  # noqa: D107
+        self.config_entry = config_entry
+
+    async def async_step_init(self, user_input: dict[str, Any] | None = None):
+        """Initial options step."""  # noqa: D401
+        if user_input is not None:
+            # store updated recipients in entry.options
+            return self.async_create_entry(title="", data=user_input)
+
+        # build form schema, defaulting to current recipients
+        current = self.config_entry.options.get("email_recipients", [])
+        schema = vol.Schema(
+            {
+                # list of emails; use voluptuous’s email validator
+                vol.Optional("email_recipients", default=current): vol.All(
+                    cv.ensure_list, [cv.email]
+                )
+            }
+        )
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=schema,
         )
 
 
