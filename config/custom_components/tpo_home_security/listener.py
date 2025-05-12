@@ -11,16 +11,6 @@ from homeassistant.core import Event, HomeAssistant, callback
 from .notifications import EmailNotifier
 from .const import DOMAIN
 
-# Force full weights load so ultralytics can load YOLOv5
-_orig_torch_load = torch.load
-
-
-def _torch_load_force_full(*args: Any, **kwargs: Any) -> Any:
-    kwargs.setdefault("weights_only", False)
-    return _orig_torch_load(*args, **kwargs)
-
-
-torch.load = _torch_load_force_full
 
 from ultralytics import YOLO  # noqa: E402
 
@@ -45,9 +35,11 @@ ANIMAL_CLASS_IDS = [
 CONFIDENCE = 0.5
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 # Load the model **once** at import time
 try:
     MODEL = YOLO(str(MODEL_FILE))
+    MODEL.export(format="torchscript", imgsz=640)
     _LOGGER.info("Loaded YOLO model from %s", MODEL_FILE)
 except Exception as e:
     MODEL = None
@@ -59,13 +51,10 @@ class YoloModelSingleton:
 
     def __new__(cls):
         if cls._instance is None:
-            try:
-                cls._instance = super().__new__(cls)
-                cls._instance.model = YOLO(str(MODEL_FILE))
-                _LOGGER.info("Loaded YOLO model from %s", MODEL_FILE)
-            except Exception as e:
-                _LOGGER.error("Failed loading YOLO model: %s", e)
-                cls._instance = None
+            cls._instance = super().__new__(cls)
+            # direct‐load raw weights; ultralytics will call torch.load internally
+            cls._instance.model = YOLO(str(MODEL_FILE))
+            _LOGGER.info("Loaded YOLO model from %s", MODEL_FILE)
         return cls._instance
 
     def detect_person(self, image_path: str) -> bool:
