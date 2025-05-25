@@ -1,8 +1,8 @@
 # HomeDefender
 
-**HomeDefender** je odprtokodni sistem za domačo varnost, zgrajen na osnovi [Home Assistant](https://www.home-assistant.io/) kot Integracija. Omogoča inteligentno zaznavanje vsiljivcev in obveščanje s pomočjo AI-podprte video analize ter tesne integracije z avtomatizacijskim sistemom Home Assistant.
+**HomeDefender** je odprtokodni sistem za domačo varnost, zgrajen na osnovi [Home Assistant](https://www.home-assistant.io/) kot **Integracija**. Omogoča inteligentno zaznavanje vsiljivcev in obveščanje s pomočjo AI-podprte video analize ter tesne integracije z avtomatizacijskim sistemom Home Assistant.
 
-S HomeDefenderjem lahko nadzorujete svoj dom preko IP kamer, zaznavate sumljive dejavnosti (kot so vsiljivci ali nevarni objekti) in prejemate opozorila ali sprožite alarme preko Home Assistanta. Oddaljen dostop je podprt preko Home Assistant Cloud (Nabu Casa), kar vam omogoča, da preverite stanje vašega doma od kjerkoli.
+S HomeDefenderjem lahko nadzorujete svoj dom preko IP kamer in senzorjev, zaznavate sumljive dejavnosti (kot so vsiljivci ali živali) in prejemate opozorila ali sprožite alarme preko Home Assistanta. Oddaljen dostop je podprt preko Home Assistant Cloud (Nabu Casa), kar vam omogoča, da preverite stanje vašega doma od kjerkoli.
 
 ## 🔐 Značilnosti
 
@@ -12,8 +12,8 @@ S HomeDefenderjem lahko nadzorujete svoj dom preko IP kamer, zaznavate sumljive 
 * **Zaznavanje nevarnih zvokov (lom stekla)**
   Sistem uporablja analizo zvoka da določi ali je prišlo do nevarnih dogodkov (lom stekla) ali nenevarnih kot so ljubljenčki ali govor ljudi.
 
-* **Integracija s Home Assistant**
-  Narejeno kot Integracija za Home Assistant. Dogodki zaznavanja se prikažejo v uporabniškem vmesniku.
+* **Integracija v Home Assistant**
+  Narejeno kot Integracija v Home Assistant okolju.
 
 * **Oddaljen nadzor**
   Dostopno od kjerkoli preko Home Assistant Cloud (Nabu Casa).
