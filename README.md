@@ -10,7 +10,7 @@ S HomeDefenderjem lahko nadzorujete svoj dom preko IP kamer in senzorjev, zaznav
   Uporablja Ultralytics YOLOv8 nevronsko mrežo za zaznavanje ljudi in ljubljenčkov (ali drugih žival).
 
 * **Zaznavanje nevarnih zvokov (lom stekla)**
-  Sistem uporablja analizo zvoka da določi ali je prišlo do nevarnih dogodkov (lom stekla) ali nenevarnih kot so ljubljenčki ali govor ljudi.
+  Sistem uporablja analizo zvoka da določi ali je prišlo do nevarnih dogodkov (lom stekla) ali nenevarnih kot so ljubljenčki ali govor ljudi. Vsi podatki so obdelani na lokalnem strežniku, nič se ne pošlje zunaj lokalnega sistema, s čem zagotavljamo integritet osebnih podatkov uporabnika.
 
 * **Integracija v Home Assistant**
   Narejeno kot Integracija v Home Assistant okolju.
