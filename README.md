@@ -117,4 +117,4 @@ All contributions to this project must comply with the licenses listed above.
 
 ---
 
-> HomeDefender je študentski projekt, razvit za izobraževalne namene (TPO 2024/2025). Pokaže, kako lahko AI-vizija izboljša domačo varnost s pomočjo Home Assistanta.
+> HomeDefender is a student project developed for educational purposes (TPO 2024/2025). It demonstrates how AI vision can enhance home security through the use of Home Assistant.
