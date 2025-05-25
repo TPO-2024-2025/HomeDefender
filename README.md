@@ -1,88 +1,112 @@
 # HomeDefender
 
-HomeDefender je odprtokodni sistem za domačo varnost, zgrajen na osnovi `Home Assistant <https://www.home-assistant.io/>`\_ kot integracija. Omogoča inteligentno zaznavanje vlomilcev in obveščanje z AI-podprto video analizo ter tesno integracijo z avtomatizacijskim sistemom Home Assistant.
+**HomeDefender** je odprtokodni sistem za domačo varnost, zgrajen na osnovi [Home Assistant](https://www.home-assistant.io/) kot Integracija. Omogoča inteligentno zaznavanje vsiljivcev in obveščanje s pomočjo AI-podprte video analize ter tesne integracije z avtomatizacijskim sistemom Home Assistant.
 
-S HomeDefenderjem lahko nadzorujete svoj dom preko IP-kamer, zaznavate sumljive dejavnosti (kot so vlomilci ali nevarni predmeti) in prejemate opozorila ali sprožite alarme preko Home Assistanta. Oddaljen dostop je podprt preko Home Assistant Cloud (Nabu Casa), kar omogoča preverjanje stanja vašega doma od kjerkoli.
+S HomeDefenderjem lahko nadzorujete svoj dom preko IP kamer, zaznavate sumljive dejavnosti (kot so vsiljivci ali nevarni objekti) in prejemate opozorila ali sprožite alarme preko Home Assistanta. Oddaljen dostop je podprt preko Home Assistant Cloud (Nabu Casa), kar vam omogoča, da preverite stanje vašega doma od kjerkoli.
 
-## Značilnosti
+## 🔐 Značilnosti
 
-* **AI-podprto zaznavanje vlomilcev**
-  Uporablja Ultralytics YOLOv8 model za zaznavanje ljudi in hišnih ljubljenčkov.
+* **AI-podprto zaznavanje vsiljivcev**
+  Uporablja Ultralytics YOLOv8 nevronsko mrežo za zaznavanje ljudi in ljubljenčkov (ali drugih žival).
 
 * **Zaznavanje nevarnih zvokov (lom stekla)**
-  Uporablja analizo zvoka za prepoznavanje nevarnih dogodkov, kot je lom stekla.
+  Sistem uporablja analizo zvoka da določi ali je prišlo do nevarnih dogodkov (lom stekla) ali nenevarnih kot so ljubljenčki ali govor ljudi.
 
 * **Integracija s Home Assistant**
-  Implementirano kot integracija Home Assistanta; dogodki zaznavanja so vidni neposredno v uporabniškem vmesniku.
+  Narejeno kot Integracija za Home Assistant. Dogodki zaznavanja se prikažejo v uporabniškem vmesniku.
 
 * **Oddaljen nadzor**
-  Dostop možen od kjerkoli prek Home Assistant Cloud (Nabu Casa).
+  Dostopno od kjerkoli preko Home Assistant Cloud (Nabu Casa).
 
-* **E-poštna in push-opozorila**
-  Pošiljanje e-poštnih sporočil in potisnih obvestil prek mobilne aplikacije Home Assistant.
+* **E-mail in Push obvestila**
+  Sistem lahko pošlje e-mail sporočila ali push obvestila preko HA aplikacije.
 
-## Navodila za postavitev razvojnega okolja
+---
 
-Predpogoji
-^^^^^^^^^^
+## 🛠️ Navodila za postavitev razvojnega okolja
 
-* Namestite `Docker Desktop <https://www.docker.com/products/docker-desktop>`\_ (ali katerikoli Docker Engine) in ga pustite zagnanega.
+### 1. Predpogoji
 
-Nastavitev razvojnega okolja preko Home Assistanta
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Namestite [Docker Desktop](https://www.docker.com/products/docker-desktop) (ali katerikoli Docker Engine) in **ga pustite zagnanega**.
 
-\#. Obiščite uradno stran za nastavitev: `Razvojno okolje Home Assistant <https://developers.home-assistant.io/docs/development_environment/>`\_.
-\#. V polje za vnos repozitorija prilepite:
+### 2. Nastavitev razvojnega okolja preko Home Assistanta
 
-`https://github.com/TPO-2024-2025/HomeDefender`
+1. Obiščite uradno stran za nastavitev:
+   👉 [https://developers.home-assistant.io/docs/development\_environment/](https://developers.home-assistant.io/docs/development_environment/)
 
-\#. Kliknite **Open in Dev Container** in dovolite brskalniku, da zažene Visual Studio Code.
-\#. Če vas sistem pozove, namestite razširitev **Remote - Containers**.
-\#. Počakajte, da se kontejner zgradi (lahko traja nekaj minut).
+2. V polje za vnos prilepite naslednji URL repozitorija:
 
-Popravek datoteke modela YOLOv8
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ```text
+   https://github.com/TPO-2024-2025/HomeDefender
+   ```
 
-Izvorno naložena datoteka `yolov8n.pt` morda ni veljavna zaradi stiskanja na GitHubu. Za zamenjavo izvedite:
+3. Kliknite **Open** in dovolite brskalniku, da zažene **Visual Studio Code**.
 
-.. code-block:: bash
+4. Če vas vpraša, odobrite namestitev razširitve **Remote - Containers**.
 
-cd custom\_components/tpo\_home\_sec
+5. Počakajte, da se kontejner zgradi. To lahko traja nekaj minut.
+
+### 3. Popravek datoteke modela YOLOv8
+
+Prednaložena datoteka `yolov8n.pt` morda ni veljavna zaradi stiskanja z strani GitHub-a. Zamenjajte jo z:
+
+```bash
+cd custom_components/tpo_home_sec
 rm yolov8n.pt  # če obstaja
-wget [https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8n.pt](https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8n.pt) -O yolov8n.pt
+wget https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8n.pt -O yolov8n.pt
+```
 
-Zagon Home Assistanta
-^^^^^^^^^^^^^^^^^^^^^
+S tem boste prenesli YOLOv8n model, ki se uporablja za zaznavanje ljudi in živali.
 
-1. V Visual Studio Code odprite ukazno vrstico (`Ctrl+Shift+P` ali `Cmd+Shift+P`).
-2. Izberite `Tasks: Run Task` → `Run HomeAssistant Core`.
+### 4. Zagon Home Assistanta
 
-Home Assistant bo nato dostopen na `http://localhost:8123`\_.
+V Visual Studio Code:
 
-## Nastavitev kamere
+* Odprite ukazno vrstico (`Ctrl+Shift+P` ali `Cmd+Shift+P`)
+* Izberite: `Tasks: Run Task` → `Run HomeAssistant Core`
 
-Privzeto ni povezane nobene kamere, zato bo ustrezna kartica v nadzorni plošči prazna.
+To zažene Home Assistant, ki bo na voljo na:
 
-\#. Odprite integracijo **Generic Camera** v nadzorni plošči.
-\#. Kliknite na **Settings**, vnesite URL vaše IP-kamere in shranite.
+👉 [http://localhost:8123](http://localhost:8123)
 
-.. tip:: Za testiranje lahko uporabite aplikacijo **DroidCam** za Android, ki simulira IP-kamero v lokalnem omrežju.
+---
 
-## Oddaljen dostop do sistema
+## 📷 Nastavitev kamere
 
-Za dostop od kjerkoli uporabite Home Assistant Cloud (Nabu Casa):
+Privzeto ni povezana nobena kamera in je ta prostor v Dashboard-u prazen.
 
-`https://10q88uinbelha2kghc5bd5dvqybqo6ec.ui.nabu.casa/`\_
+1. Odprite kartico **Generic Camera** v nadzorni plošči Home Assistanta.
+2. Kliknite nastavitve in vnesite URL toka vaše IP kamere.
 
-## Licenciranje
+💡 Za razvoj:
+Uporabite aplikacijo **DroidCam** za Android, da simulirate IP kamero v vašem lokalnem omrežju z uprabo osebnega telefona.
+
+---
+
+## 🌐 Oddaljen dostop do sistema
+
+HomeDefender je dostopen tudi na daljavo preko Nabu Casa:
+
+👉 [https://10q88uinbelha2kghc5bd5dvqybqo6ec.ui.nabu.casa/](https://10q88uinbelha2kghc5bd5dvqybqo6ec.ui.nabu.casa/)
+
+Uporabite to varno povezavo za dostop do nadzorne plošče Home Assistanta od kjerkoli.
+
+---
+
+## 📄 Licenciranje
+
+Ta repozitorij vključuje kodo in modele z naslednjimi licencami:
 
 * **Home Assistant Core**
-  Licencirano pod Apache License 2.0: `LICENSE <https://github.com/home-assistant/core/blob/dev/LICENSE.md>`\_
+  Licencirano pod Apache License 2.0
+  → [https://github.com/home-assistant/core/blob/dev/LICENSE.md](https://github.com/home-assistant/core/blob/dev/LICENSE.md)
 
 * **Ultralytics YOLOv8**
-  Licencirano pod GNU AGPL-3.0: `LICENSE <https://github.com/ultralytics/ultralytics/blob/main/LICENSE>`\_
+  Licencirano pod GNU AGPL-3.0
+  → [https://github.com/ultralytics/ultralytics/blob/main/LICENSE](https://github.com/ultralytics/ultralytics/blob/main/LICENSE)
 
-Vsako prispevanje mora biti v skladu z zgoraj navedenimi licencami.
+Vsako prispevanje k temu projektu mora biti v skladu z zgoraj navedenimi licencami.
 
-.. note::
-HomeDefender je študentski projekt, razvit v okviru TPO 2024/2025 za izobraževalne namene. Pokaže, kako lahko AI-vizija izboljša domačo varnost s pomočjo Home Assistanta.
+---
+
+> HomeDefender je študentski projekt, razvit za izobraževalne namene (TPO 2024/2025). Pokaže, kako lahko AI-vizija izboljša domačo varnost s pomočjo Home Assistanta.
