@@ -1,54 +1,54 @@
 # HomeDefender
 
-**HomeDefender** je odprtokodni sistem za domačo varnost, zgrajen na osnovi [Home Assistant](https://www.home-assistant.io/) kot **Integracija**. Omogoča inteligentno zaznavanje vsiljivcev in obveščanje s pomočjo AI-podprte video analize ter tesne integracije z avtomatizacijskim sistemom Home Assistant.
+**HomeDefender** is an open-source home security system built on top of [Home Assistant](https://www.home-assistant.io/) as an **Integration**. It enables intelligent intruder detection and notification using AI-powered video analysis and tight integration with the Home Assistant automation system.
 
-S HomeDefenderjem lahko nadzorujete svoj dom preko IP kamer in senzorjev, zaznavate sumljive dejavnosti (kot so vsiljivci ali živali) in prejemate opozorila ali sprožite alarme preko Home Assistanta. Oddaljen dostop je podprt preko Home Assistant Cloud (Nabu Casa), kar vam omogoča, da preverite stanje vašega doma od kjerkoli.
+With HomeDefender, you can monitor your home through IP cameras and sensors, detect suspicious activities (such as intruders or animals), and receive alerts or trigger alarms via Home Assistant. Remote access is supported through Home Assistant Cloud (Nabu Casa), allowing you to check the status of your home from anywhere.
 
-## 🔐 Značilnosti
+## 🔐 Features
 
-* **AI-podprto zaznavanje vsiljivcev**
-  Uporablja Ultralytics YOLOv8 nevronsko mrežo za zaznavanje ljudi in ljubljenčkov (ali drugih žival).
+* **AI-Powered Intruder Detection**  
+  Utilizes the Ultralytics YOLOv8 neural network to detect humans and pets (or other animals).
 
-* **Zaznavanje nevarnih zvokov (lom stekla)**
-  Sistem uporablja analizo zvoka da določi ali je prišlo do nevarnih dogodkov (lom stekla) ali nenevarnih kot so ljubljenčki ali govor ljudi. Vsi podatki so obdelani na lokalnem strežniku, nič se ne pošlje zunaj lokalnega sistema, s čem zagotavljamo integritet osebnih podatkov uporabnika.
+* **Dangerous Sound Detection (Glass Break)**  
+  The system uses sound analysis to determine whether a dangerous event (such as glass breaking) or a non-threatening event (such as pets or human speech) has occurred. All data is processed on a local server — nothing is sent outside the local system ensuring the integrity of the user's personal data.
 
-* **Integracija v Home Assistant**
-  Narejeno kot Integracija v Home Assistant okolju.
+* **Home Assistant Integration**  
+  Built as an Integration within the Home Assistant environment.
 
-* **Oddaljen nadzor**
-  Dostopno od kjerkoli preko Home Assistant Cloud (Nabu Casa).
+* **Remote Monitoring**  
+  Accessible from anywhere via Home Assistant Cloud (Nabu Casa).
 
-* **E-mail in Push obvestila**
-  Sistem lahko pošlje e-mail sporočila ali push obvestila preko HA aplikacije.
+* **Email and Push Notifications**  
+  The system can send email messages or push notifications through the Home Assistant app.
 
 ---
 
-## 🛠️ Navodila za postavitev razvojnega okolja
+## 🛠️ Development Environment Setup Instructions
 
-### 1. Predpogoji
+### 1. Prerequisites
 
-Namestite [Docker Desktop](https://www.docker.com/products/docker-desktop) (ali katerikoli Docker Engine) in **ga pustite zagnanega**.
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop) (or any Docker Engine) and **leave it running**.
 
-### 2. Nastavitev razvojnega okolja preko Home Assistanta
+### 2. Setting Up the Development Environment via Home Assistant
 
-1. Obiščite uradno stran za nastavitev:
-   👉 [https://developers.home-assistant.io/docs/development\_environment/](https://developers.home-assistant.io/docs/development_environment/)
+1. Visit the official setup page:  
+   👉 [https://developers.home-assistant.io/docs/development_environment/](https://developers.home-assistant.io/docs/development_environment/)
 
-2. V polje za vnos prilepite naslednji URL repozitorija:
+2. Paste the following repository URL into the input field:
 
    ```text
    https://github.com/TPO-2024-2025/HomeDefender
    ```
 
-3. Kliknite **Open** in dovolite brskalniku, da zažene **Visual Studio Code**.
+3. Click **Open** and allow your browser to launch **Visual Studio Code**.
 
-4. Če vas vpraša, odobrite namestitev razširitve **Remote - Containers**.
+4. If prompted, approve the installation of the **Remote - Containers** extension.
 
-5. Počakajte, da se kontejner zgradi. To lahko traja nekaj minut.
+5. Wait for the container to build. This may take a few minutes.
 
-### 3. Popravek datoteke modela YOLOv8
+### 3. Fixing the YOLOv8 Model File
 
-Prednaložena datoteka `yolov8n.pt` morda ni veljavna zaradi stiskanja z strani GitHub-a. Zamenjajte jo z:
+The preloaded `yolov8n.pt` file may be invalid due to GitHub compression. Replace it with:
 
 ```bash
 cd config/custom_components/tpo_home_security
@@ -56,64 +56,64 @@ rm yolov8n.pt  # če obstaja
 wget https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8n.pt -O yolov8n.pt
 ```
 
-S tem boste prenesli YOLOv8n model, ki se uporablja za zaznavanje ljudi in živali.
+This will download the YOLOv8n model used for detecting humans and animals.
 
-### 4. Zagon Home Assistanta
+### 4. Running Home Assistant
 
-V Visual Studio Code:
+In Visual Studio Code:
 
-* Odprite ukazno vrstico (`Ctrl+Shift+P` ali `Cmd+Shift+P`)
-* Izberite: `Tasks: Run Task` → `Run HomeAssistant Core`
+* Open the command palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+* Select: `Tasks: Run Task` → `Run HomeAssistant Core`
 
-To zažene Home Assistant, ki bo na voljo na:
+This will start Home Assistant, which will be available at:
 
 👉 [http://localhost:8123](http://localhost:8123)
 
 ---
 
-## 📷 Nastavitev kamere
+## 📷 Camera Setup
 
-Privzeto ni povezana nobena kamera in je ta prostor v Dashboard-u prazen.
+By default, no camera is connected and this area in the Dashboard is empty.
 
-1. Odprite kartico **Generic Camera** v nadzorni plošči Home Assistanta.
-2. Kliknite nastavitve in vnesite URL toka vaše IP kamere.
+1. Open the **Generic Camera** card in the Home Assistant dashboard.
+2. Click settings and enter the stream URL of your IP camera.
 
-💡 Za razvoj:
-Uporabite aplikacijo **DroidCam** za Android, da simulirate IP kamero v vašem lokalnem omrežju z uprabo osebnega telefona.
+💡 For development:  
+Use the **DroidCam** app on Android to simulate an IP camera on your local network using your smartphone.
 
 ---
 
-## 🌐 Oddaljen dostop do sistema
+## 🌐 Remote Access to the System
 
-HomeDefender je dostopen tudi na daljavo preko Nabu Casa:
+HomeDefender is also accessible remotely via Nabu Casa:
 
 👉 [https://10q88uinbelha2kghc5bd5dvqybqo6ec.ui.nabu.casa/](https://10q88uinbelha2kghc5bd5dvqybqo6ec.ui.nabu.casa/)
 
-Uporabite to varno povezavo za dostop do nadzorne plošče Home Assistanta od kjerkoli.
+Use this secure link to access the Home Assistant dashboard from anywhere.
 
 ---
 
-## 🎥 Video navodila
+## 🎥 Video Tutorial
 
-Za popolno nastavitev si oglejte ta [YouTube video](https://www.youtube.com/watch?v=i3Z57cE1wpY), ki podrobno razlaga korake za nastavitev celotnega okolja.
+For a complete setup, watch this [YouTube video](https://www.youtube.com/watch?v=i3Z57cE1wpY), which explains the full environment setup steps in detail.
 
-Tudi smo prikazali izhodišča terminala v Visual Studio Code-u in primere uporabe omenjene v predstavitvi.
+It also shows terminal outputs in Visual Studio Code and usage examples mentioned in the presentation.
 
 ---
 
-## 📄 Licenciranje
+## 📄 Licensing
 
-Ta repozitorij vključuje kodo in modele z naslednjimi licencami:
+This repository includes code and models under the following licenses:
 
-* **Home Assistant Core**
-  Licencirano pod Apache License 2.0
+* **Home Assistant Core**  
+  Licensed under Apache License 2.0  
   → [https://github.com/home-assistant/core/blob/dev/LICENSE.md](https://github.com/home-assistant/core/blob/dev/LICENSE.md)
 
-* **Ultralytics YOLOv8**
-  Licencirano pod GNU AGPL-3.0
+* **Ultralytics YOLOv8**  
+  Licensed under GNU AGPL-3.0  
   → [https://github.com/ultralytics/ultralytics/blob/main/LICENSE](https://github.com/ultralytics/ultralytics/blob/main/LICENSE)
 
-Vsako prispevanje k temu projektu mora biti v skladu z zgoraj navedenimi licencami.
+All contributions to this project must comply with the licenses listed above.
 
 ---
 
