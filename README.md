@@ -95,7 +95,7 @@ Uporabite to varno povezavo za dostop do nadzorne plošče Home Assistanta od kj
 
 ## 🎥 Video navodila
 
-Za popolno nastavitev si oglejte ta [https://www.youtube.com/watch?v=i3Z57cE1wpY/] (YouTube video), ki podrobno razlaga korake za nastavitev celotnega okolja.
+Za popolno nastavitev si oglejte ta [https://www.youtube.com/watch?v=i3Z57cE1wpY/](YouTube video), ki podrobno razlaga korake za nastavitev celotnega okolja.
 
 Tudi smo prikazali izhodišča terminala v Visual Studio Code-u in primere uporabe omenjene v predstavitvi.
 
