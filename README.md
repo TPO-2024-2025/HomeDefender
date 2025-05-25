@@ -51,7 +51,7 @@ Namestite [Docker Desktop](https://www.docker.com/products/docker-desktop) (ali 
 Prednaložena datoteka `yolov8n.pt` morda ni veljavna zaradi stiskanja z strani GitHub-a. Zamenjajte jo z:
 
 ```bash
-cd custom_components/tpo_home_sec
+cd custom_components/tpo_home_security
 rm yolov8n.pt  # če obstaja
 wget https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8n.pt -O yolov8n.pt
 ```
